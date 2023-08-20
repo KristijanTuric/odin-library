@@ -1,3 +1,5 @@
+/*#region Base*/
+
 *
 {
     margin: 0;
@@ -17,6 +19,11 @@ body
     font-weight: 500;
 }
 
+button:hover
+{
+    background-color: lightblue;
+}
+
 #header, #content
 {
     display: flex;
@@ -24,11 +31,15 @@ body
     justify-content: space-between;
 }
 
+/*#endregion Base*/
+
+/*#region Header*/
+
 #header
 {
     height: 15vh;
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.08), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
-    padding: 0 20px 0 20px ;
+    padding: 0 50px 0 80px;
     font-size: xx-large;
 }
 
@@ -49,6 +60,10 @@ body
     cursor: pointer;
 }
 
+/*#endregion Header*/
+
+/*#region Main Content*/
+
 #add-button
 {
     outline: none;
@@ -58,4 +73,65 @@ body
     padding: 12px;
     cursor: pointer;
 }
+
+/*#endregion Main Content*/
+
+/*#region Dialog*/
+
+dialog
+{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    border: 2px solid black;
+    width: 25vw;
+}
+
+#newBookDialog > form
+{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+}
+
+.dialogInput
+{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dialogInput > label
+{
+    font-size: larger;
+}
+
+.dialogInput > input, .dialogInput > select
+{
+    font-size: large;
+    padding: 3px;
+}
+
+.dialogButtons
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dialogButtons > button
+{
+    font-size: larger;
+    padding: 5px;
+}
+
+dialog::backdrop
+{
+    background-color: rgba(36, 36, 36, 0.25);
+}
+
+/*#endregion Dialog*/
 

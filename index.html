@@ -16,6 +16,41 @@
         <button id="add-button">Add Book</button>
     </div>
 
+    <!-- New Book Dialog -->
+    <dialog id="newBookDialog">
+        <form>
+            <div class="dialogInput">
+                <label>Title</label>
+                <input type="text" placeholder="Harry Potter...">
+            </div>            
+
+            <div class="dialogInput">
+                <label>Author</label>
+                <input type="text" placeholder="Malcom Gladwell...">
+            </div>
+
+            <div class="dialogInput">
+                <label>Pages</label>
+                <input type="number">
+            </div>
+            
+            <div class="dialogInput">
+                <label>Did you read it?</label>
+                <select>
+                    <option value="default">Not read</option>
+                    <option>Read</option>
+                </select>
+            </div>
+
+            <div class="dialogButtons">
+                <button value="cancel" formmethod="dialog">Cancel</button>
+                <button id="confirmBtn" value="default">Confirm</button>
+            </div>
+        </form>
+    </dialog>
+
+
+
     <script src="script.js"></script>
 </body>
 </html>
