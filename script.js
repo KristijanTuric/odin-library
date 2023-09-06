@@ -61,7 +61,14 @@ gitButton.addEventListener('click', function()
 var newBookDialog = document.getElementById("newBookDialog");
 var addButton = document.getElementById("add-button");
 var confirmButton = newBookDialog.querySelector("#confirmBtn");
+var cancelButton = newBookDialog.querySelector("#cancelBtn");
 var dialogForm = newBookDialog.querySelector("form");
+
+// Form inputs
+
+var titleInput = document.getElementById("titleInput");
+var authorInput = document.getElementById("authorInput");
+var pagesInput = document.getElementById("pagesInput");
 var selectRead = newBookDialog.querySelector("select");
 
 addButton.addEventListener('click', () =>
@@ -77,15 +84,56 @@ selectRead.addEventListener('change', (e) =>
 
 newBookDialog.addEventListener('close', (e) =>
 {
-    console.log(confirmButton.value);
     dialogForm.reset();
+});
 
+cancelButton.addEventListener('click', (event) => 
+{
+    titleInput.style.borderColor = "revert";
+    authorInput.style.borderColor = "revert";
+    pagesInput.style.borderColor = "revert";
+    newBookDialog.close();
 });
 
 confirmButton.addEventListener('click', (event) =>
 {
     event.preventDefault();
-    newBookDialog.close();
+
+    if(titleInput.value == "" || authorInput.value == "" || pagesInput.value == "")
+    {
+        // Here we will want to make the inputs outline red
+        // and maybe show a message that says the title is empty
+        if(titleInput.value == "") 
+        {
+            titleInput.style.borderColor = "red";
+        }
+        else titleInput.style.borderColor = "gray";
+
+        if(authorInput.value == "") authorInput.style.borderColor = "red";
+        else authorInput.style.borderColor = "gray";
+
+        if(pagesInput.value == "") pagesInput.style.borderColor = "red";
+        else pagesInput.style.borderColor = "gray";
+    }
+
+    else 
+    {
+        addBookToLibrary(new Book(titleInput.value, authorInput.value, pagesInput.value, convertReadToBoolean(selectRead.value)));
+        getLibrary();
+        newBookDialog.close();
+    }
+    
 });
+
+/** This function converts the string given from the selector selectRead and return a bool value
+ * 
+ * @param {String} read String that is taken from the selector
+ * @returns {Bool} True if the value is "Read" or False in case of any other selected value
+ */
+function convertReadToBoolean(read)
+{
+    if(read == "Read") return true;
+    else return false;
+}
 
 //#endregion

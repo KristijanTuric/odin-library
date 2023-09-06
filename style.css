@@ -113,6 +113,7 @@ dialog
 {
     font-size: large;
     padding: 3px;
+    outline-style: none;
 }
 
 .dialogButtons
