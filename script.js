@@ -20,13 +20,23 @@ function Book(title, author, pages, isRead)
         return `${title} by ${author}, has ${pages} pages and is ${this.readToString()}.`;
     }
 }
+//#region Book Display
+var test = document.getElementById("content");
+
+
+
+
+//#endregion Book Display
 
 //#region Console Testing
 
 const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 300, false);
 addBookToLibrary(theHobbit);
 addBookToLibrary(new Book("Pride and Prejudice", "Jane Austen", 279, false));
-addBookToLibrary(new Book("The Tipping Point", "Malcom Gladwell", 301, true));
+for(let i = 0; i < 20; i++) 
+{
+    addBookToLibrary(theHobbit);
+}
 getLibrary();
 
 //#endregion
@@ -37,13 +47,32 @@ function addBookToLibrary(book)
     myLibrary[myLibrary.length] = book;
 }
 
+
+
 // Gets all the books from the array and displays them
 function getLibrary()
 {
     for(let j = 0; j < myLibrary.length; j++)
     {
         console.log(myLibrary[j].info());
+
+        // Implicit making of book displays
+        // TODO: Change later
+        const newDiv = document.createElement("div");
+        newDiv.style.background = "gray";
+        newDiv.style.borderRadius = "8px";
+        newDiv.style.height = "250px";
+        newDiv.style.padding = "10px";
+        newDiv.style.display = "flex";
+        newDiv.style.flexDirection = "column";
+
+        newDiv.appendChild(document.createTextNode(myLibrary[j].title));
+        newDiv.appendChild(document.createTextNode(myLibrary[j].author));
+        newDiv.appendChild(document.createTextNode(myLibrary[j].pages));
+        test.appendChild(newDiv);
     }
+
+    
 }
 
 //#region GitHub Button
