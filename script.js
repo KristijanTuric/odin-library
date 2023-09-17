@@ -2,13 +2,18 @@
 
 const myLibrary = [];
 
+var gIndex = 0;
+
 // The Book Object Constructor
-function Book(title, author, pages, isRead)
+function Book(title, author, pages, isRead, index)
 {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.isRead = isRead;
+    this.index = gIndex;
+    gIndex += 1;
+
     this.readToString = function()
     {
         if(isRead) return "read"
@@ -23,7 +28,85 @@ function Book(title, author, pages, isRead)
 //#region Book Display
 var test = document.getElementById("content");
 
+function bookToDisplay(book)
+{
+    const newDiv = document.createElement("div");
+    newDiv.style.background = "gray";
+    newDiv.style.borderRadius = "8px";
+    newDiv.style.height = "280px";
+    newDiv.style.padding = "10px";
+    newDiv.style.display = "flex";
+    newDiv.style.flexDirection = "column";
+    newDiv.style.alignItems = "center";
+    newDiv.style.justifyContent = "space-between";
 
+    const titleDiv = document.createElement("div");
+    titleDiv.textContent = book.title;
+    titleDiv.style.backgroundColor = "white";
+    titleDiv.style.padding = "5px";
+    titleDiv.style.borderRadius = "8px";
+
+    const authorDiv = document.createElement("div");
+    authorDiv.textContent = book.author;
+    authorDiv.style.backgroundColor = "white";
+    authorDiv.style.padding = "5px";
+    authorDiv.style.borderRadius = "8px";
+
+    const pagesDiv = document.createElement("div");
+    pagesDiv.textContent = book.pages + " ind:" + book.index;
+    pagesDiv.style.backgroundColor = "white";
+    pagesDiv.style.padding = "5px";
+    pagesDiv.style.borderRadius = "8px";
+
+    const removeButton = document.createElement("button");
+    removeButton.style.outline = "none";
+    removeButton.style.border = "none";
+    removeButton.style.fontSize = "large";
+    removeButton.style.padding = "12px";
+    removeButton.style.borderRadius = "8px";
+    removeButton.style.width = "85%";
+    removeButton.textContent = "Remove";
+
+    removeButton.addEventListener('click', ()=> {
+
+
+
+    });
+
+    const readButton = document.createElement("button");
+    readButton.textContent = "Not Read";
+    readButton.style.outline = "none";
+    readButton.style.border = "none";
+    readButton.style.fontSize = "large";
+    readButton.style.padding = "12px";
+    readButton.style.borderRadius = "8px";
+    readButton.style.width = "85%";
+    readButton.style.backgroundColor = "red";
+
+    readButton.addEventListener('click', () => {
+
+        if(readButton.style.backgroundColor == "red")
+        {
+            readButton.style.backgroundColor = "lightgreen";
+            readButton.textContent = "Read";
+        }
+        else
+        {
+            readButton.style.backgroundColor = "red";
+            readButton.textContent = "Not Read";
+        }
+        
+
+    });
+
+    newDiv.appendChild(titleDiv);
+    newDiv.appendChild(authorDiv);
+    newDiv.appendChild(pagesDiv);
+    newDiv.appendChild(removeButton);
+    newDiv.appendChild(readButton);
+
+    test.appendChild(newDiv);
+}
 
 
 //#endregion Book Display
@@ -33,10 +116,12 @@ var test = document.getElementById("content");
 const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 300, false);
 addBookToLibrary(theHobbit);
 addBookToLibrary(new Book("Pride and Prejudice", "Jane Austen", 279, false));
+
 for(let i = 0; i < 20; i++) 
 {
     addBookToLibrary(theHobbit);
 }
+
 getLibrary();
 
 //#endregion
@@ -54,22 +139,7 @@ function getLibrary()
 {
     for(let j = 0; j < myLibrary.length; j++)
     {
-        console.log(myLibrary[j].info());
-
-        // Implicit making of book displays
-        // TODO: Change later
-        const newDiv = document.createElement("div");
-        newDiv.style.background = "gray";
-        newDiv.style.borderRadius = "8px";
-        newDiv.style.height = "250px";
-        newDiv.style.padding = "10px";
-        newDiv.style.display = "flex";
-        newDiv.style.flexDirection = "column";
-
-        newDiv.appendChild(document.createTextNode(myLibrary[j].title));
-        newDiv.appendChild(document.createTextNode(myLibrary[j].author));
-        newDiv.appendChild(document.createTextNode(myLibrary[j].pages));
-        test.appendChild(newDiv);
+        bookToDisplay(myLibrary[j]);   
     }
 
     
