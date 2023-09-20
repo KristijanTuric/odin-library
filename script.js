@@ -1,23 +1,19 @@
 // The idea is to take the books from the user and save them in an array
 
-const myLibrary = [];
-
-var gIndex = 0;
+var myLibrary = [];
 
 // The Book Object Constructor
-function Book(title, author, pages, isRead, index)
+function Book(title, author, pages, isRead)
 {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.isRead = isRead;
-    this.index = gIndex;
-    gIndex += 1;
 
     this.readToString = function()
     {
-        if(isRead) return "read"
-        else return "not read"
+        if(isRead) return "Read";
+        else return "Not Read";
     }
     
     this.info = function()
@@ -26,8 +22,9 @@ function Book(title, author, pages, isRead, index)
     }
 }
 //#region Book Display
-var test = document.getElementById("content");
+var mainContent = document.getElementById("content");
 
+// Displays the given book in the UI
 function bookToDisplay(book)
 {
     const newDiv = document.createElement("div");
@@ -53,7 +50,7 @@ function bookToDisplay(book)
     authorDiv.style.borderRadius = "8px";
 
     const pagesDiv = document.createElement("div");
-    pagesDiv.textContent = book.pages + " ind:" + book.index;
+    pagesDiv.textContent = book.pages;
     pagesDiv.style.backgroundColor = "white";
     pagesDiv.style.padding = "5px";
     pagesDiv.style.borderRadius = "8px";
@@ -69,19 +66,21 @@ function bookToDisplay(book)
 
     removeButton.addEventListener('click', ()=> {
 
-
+        removeBookFromLibrary(book);
+        mainContent.removeChild(newDiv);
 
     });
 
     const readButton = document.createElement("button");
-    readButton.textContent = "Not Read";
+    readButton.textContent = book.readToString();
+    if (book.readToString() == "Not Read") readButton.style.backgroundColor = "red";
+    else readButton.style.backgroundColor = "lightgreen";
     readButton.style.outline = "none";
     readButton.style.border = "none";
     readButton.style.fontSize = "large";
     readButton.style.padding = "12px";
     readButton.style.borderRadius = "8px";
     readButton.style.width = "85%";
-    readButton.style.backgroundColor = "red";
 
     readButton.addEventListener('click', () => {
 
@@ -89,11 +88,15 @@ function bookToDisplay(book)
         {
             readButton.style.backgroundColor = "lightgreen";
             readButton.textContent = "Read";
+            Object.assign(book, new Book(book.title, book.author, book.pages, true));
+            console.log(book.info());
         }
         else
         {
             readButton.style.backgroundColor = "red";
             readButton.textContent = "Not Read";
+            Object.assign(book, new Book(book.title, book.author, book.pages, false));
+            console.log(book.info());
         }
         
 
@@ -105,14 +108,14 @@ function bookToDisplay(book)
     newDiv.appendChild(removeButton);
     newDiv.appendChild(readButton);
 
-    test.appendChild(newDiv);
+    mainContent.appendChild(newDiv);
 }
-
 
 //#endregion Book Display
 
 //#region Console Testing
 
+console.log("Console testing ENABLED");
 const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 300, false);
 addBookToLibrary(theHobbit);
 addBookToLibrary(new Book("Pride and Prejudice", "Jane Austen", 279, false));
@@ -122,28 +125,36 @@ for(let i = 0; i < 20; i++)
     addBookToLibrary(theHobbit);
 }
 
+// Runs only once when you start the appliaction, mostly for testing or when loading from local file
 getLibrary();
 
 //#endregion
 
-// Adds a book object to the array of books
+//#region Helper Functions
+
+// Adds a book object to the array of books and to the display
 function addBookToLibrary(book)
 {
     myLibrary[myLibrary.length] = book;
+    bookToDisplay(book);
 }
-
-
 
 // Gets all the books from the array and displays them
 function getLibrary()
 {
     for(let j = 0; j < myLibrary.length; j++)
     {
-        bookToDisplay(myLibrary[j]);   
+        bookToDisplay(myLibrary[j]);
     }
-
-    
 }
+
+// Removes the given book object from the library
+function removeBookFromLibrary(book)
+{
+    myLibrary.splice(myLibrary.indexOf(book), 1);
+}
+
+//#endregion
 
 //#region GitHub Button
 
@@ -206,19 +217,19 @@ confirmButton.addEventListener('click', (event) =>
         {
             titleInput.style.borderColor = "red";
         }
-        else titleInput.style.borderColor = "gray";
+        else titleInput.style.borderColor = "limegreen";
 
         if(authorInput.value == "") authorInput.style.borderColor = "red";
-        else authorInput.style.borderColor = "gray";
+        else authorInput.style.borderColor = "limegreen";
 
         if(pagesInput.value == "") pagesInput.style.borderColor = "red";
-        else pagesInput.style.borderColor = "gray";
+        else pagesInput.style.borderColor = "limegreen";
     }
+
 
     else 
     {
         addBookToLibrary(new Book(titleInput.value, authorInput.value, pagesInput.value, convertReadToBoolean(selectRead.value)));
-        getLibrary();
         newBookDialog.close();
     }
     
