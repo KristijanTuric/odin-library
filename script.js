@@ -21,6 +21,7 @@ function Book(title, author, pages, isRead)
         return `${title} by ${author}, has ${pages} pages and is ${this.readToString()}.`;
     }
 }
+
 //#region Book Display
 var mainContent = document.getElementById("content");
 
@@ -28,9 +29,9 @@ var mainContent = document.getElementById("content");
 function bookToDisplay(book)
 {
     const newDiv = document.createElement("div");
-    newDiv.style.background = "gray";
     newDiv.style.borderRadius = "8px";
     newDiv.style.height = "280px";
+    newDiv.style.border = "solid";
     newDiv.style.padding = "10px";
     newDiv.style.display = "flex";
     newDiv.style.flexDirection = "column";
@@ -50,7 +51,7 @@ function bookToDisplay(book)
     authorDiv.style.borderRadius = "8px";
 
     const pagesDiv = document.createElement("div");
-    pagesDiv.textContent = book.pages;
+    pagesDiv.textContent = book.pages + " pages";
     pagesDiv.style.backgroundColor = "white";
     pagesDiv.style.padding = "5px";
     pagesDiv.style.borderRadius = "8px";
@@ -68,6 +69,7 @@ function bookToDisplay(book)
 
         removeBookFromLibrary(book);
         mainContent.removeChild(newDiv);
+        localStorage.setItem('books', JSON.stringify(myLibrary));
 
     });
 
@@ -115,18 +117,28 @@ function bookToDisplay(book)
 
 //#region Console Testing
 
-console.log("Console testing ENABLED");
-const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 300, false);
-addBookToLibrary(theHobbit);
-addBookToLibrary(new Book("Pride and Prejudice", "Jane Austen", 279, false));
+if (localStorage.getItem('books') === null)
+{
+    var tempLib = [];
+}
+else
+{
+    var tempLib = JSON.parse(localStorage.getItem('books'));
+    for(let i = 0; i < tempLib.length; i++)
+    {
+        addBookToLibrary(new Book(tempLib[i].title, tempLib[i].author, tempLib[i].pages, tempLib[i].isRead));
+    }
+}
 
+/* console.log("Console testing ENABLED");
+const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 300, false);
+addBookToLibrary(theHobbit); */
+
+/* 
 for(let i = 0; i < 20; i++) 
 {
     addBookToLibrary(theHobbit);
-}
-
-// Runs only once when you start the appliaction, mostly for testing or when loading from local file
-getLibrary();
+} */
 
 //#endregion
 
@@ -162,6 +174,16 @@ var gitButton = document.getElementById("git-button");
 gitButton.addEventListener('click', function()
 {
     window.open("https://github.com/KristijanTuric/odin-library", '_blank').focus();
+});
+
+//#endregion
+
+//#region Clear Button
+
+var clearButton = document.getElementById("clear-button");
+clearButton.addEventListener('click', function()
+{
+    localStorage.clear();
 });
 
 //#endregion
@@ -230,6 +252,9 @@ confirmButton.addEventListener('click', (event) =>
     else 
     {
         addBookToLibrary(new Book(titleInput.value, authorInput.value, pagesInput.value, convertReadToBoolean(selectRead.value)));
+        // Saves the current myLibrary in local storage
+        // when a book is added
+        localStorage.setItem('books', JSON.stringify(myLibrary));
         newBookDialog.close();
     }
     

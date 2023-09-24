@@ -11,7 +11,12 @@
       - [X] Should also change that parameter in the book array
   - [X] Display one element for each book in the library (array)
   - [X] Display the whole library (dynamic rows and columns based on screen size)
-  - [ ] Re-work UI position and design
-    - [ ] When the library is empty (change position of Add Button and starting book displays)
-    - [ ] When it has many books (change position of Add Button)
-  - [ ] Option to save the library locally or on the cloud
+  - [X] Re-work UI position and design
+    - [X] When the library is empty (change position of Add Button and starting book displays)
+    - [X] When it has many books (change position of Add Button)
+  - [X] Automatically save the library locally using a JSON
+    - [X] Able to clear all data
+      - [ ] Give the user feedback when pressing the button
+    - [X] Able to remove the book from local storage
+  - [X] Read from the locally saved data upon website opening
+  - [ ] Alter UI Design Colors

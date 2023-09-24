@@ -13,13 +13,19 @@
         <button id="git-button">GitHub</button>
     </div>
 
+    <div id="add-div">
+        <button class="default-button" id="add-button">Add Book</button>
+        <button class="default-button" id="clear-button">Clear Local Memory</button>
+    </div>
+    
+
     <div id="content">
-        <button id="add-button">Add Book</button>
+        
     </div>
 
     <!-- New Book Dialog -->
     <dialog id="newBookDialog">
-        <form>
+        <form autocomplete="off">
             <div class="dialogInput">
                 <label>Title</label>
                 <input id="titleInput" type="text" placeholder="Harry Potter...">
@@ -54,8 +60,6 @@
             </div>
         </form>
     </dialog>
-
-
 
     <script src="script.js"></script>
 </body>
