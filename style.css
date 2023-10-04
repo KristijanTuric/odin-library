@@ -91,6 +91,11 @@ button:hover
 
 /*#endregion Main Content*/
 
+#alertDialog, #sameAlertDialog
+{
+    padding: 15px;
+}
+
 /*#region Dialog*/
 
 dialog

@@ -2,8 +2,8 @@
 
 - [X] New Book Dialog
 - [X] Return the dialog form values and save them in the array
-- [ ] Notifiy the user if he doesn't enter a value (red outline if empty, lime green outline if entered book)
-  - [ ] Gotta check if book already in library
+- [X] Notifiy the user if he doesn't enter a value (red outline if empty, lime green outline if entered book)
+  - [X] Gotta check if book already in library
 - [X] Display the book objects
   - [X] Make a custom element that will display the book information
     - [X] Should be able to remove the element
@@ -16,7 +16,7 @@
     - [X] When it has many books (change position of Add Button)
   - [X] Automatically save the library locally using a JSON
     - [X] Able to clear all data
-      - [ ] Give the user feedback when pressing the button
+      - [X] Give the user feedback when pressing the button
     - [X] Able to remove the book from local storage
   - [X] Read from the locally saved data upon website opening
   - [ ] Alter UI Design Colors

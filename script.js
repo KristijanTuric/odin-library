@@ -166,6 +166,17 @@ function removeBookFromLibrary(book)
     myLibrary.splice(myLibrary.indexOf(book), 1);
 }
 
+// Returns true if the book is in the library otherwise false
+function isBookInLibrary(book)
+{
+    for (let i = 0; i < myLibrary.length; i++)
+    {
+        if (myLibrary[i].title === book.title && myLibrary[i].author === book.author) return true;
+    }
+
+    return false;
+}
+
 //#endregion
 
 //#region GitHub Button
@@ -181,9 +192,18 @@ gitButton.addEventListener('click', function()
 //#region Clear Button
 
 var clearButton = document.getElementById("clear-button");
+var alertDialog = document.getElementById("alertDialog");
+
+// When you click the Clear button it will clear local memory
+// , show an alert and reload the website
 clearButton.addEventListener('click', function()
 {
     localStorage.clear();
+    alertDialog.showModal();
+    setTimeout(function() {
+        alertDialog.close();
+        location.reload(true);
+    }, 2000);
 });
 
 //#endregion
@@ -195,6 +215,7 @@ var addButton = document.getElementById("add-button");
 var confirmButton = newBookDialog.querySelector("#confirmBtn");
 var cancelButton = newBookDialog.querySelector("#cancelBtn");
 var dialogForm = newBookDialog.querySelector("form");
+var sameBookAlert = document.getElementById("sameAlertDialog");
 
 // Form inputs
 
@@ -251,11 +272,24 @@ confirmButton.addEventListener('click', (event) =>
 
     else 
     {
-        addBookToLibrary(new Book(titleInput.value, authorInput.value, pagesInput.value, convertReadToBoolean(selectRead.value)));
-        // Saves the current myLibrary in local storage
-        // when a book is added
-        localStorage.setItem('books', JSON.stringify(myLibrary));
-        newBookDialog.close();
+        console.log(isBookInLibrary(new Book(titleInput.value, authorInput.value, pagesInput.value, convertReadToBoolean(selectRead.value))));
+        if(isBookInLibrary(new Book(titleInput.value, authorInput.value, pagesInput.value, convertReadToBoolean(selectRead.value))))
+        {
+            sameBookAlert.showModal();
+            setTimeout(function() {
+                sameBookAlert.close();
+                newBookDialog.close();
+            }, 2000);
+        }
+
+        else
+        {
+            addBookToLibrary(new Book(titleInput.value, authorInput.value, pagesInput.value, convertReadToBoolean(selectRead.value)));
+            // Saves the current myLibrary in local storage
+            // when a book is added
+            localStorage.setItem('books', JSON.stringify(myLibrary));
+            newBookDialog.close();
+        }
     }
     
 });
