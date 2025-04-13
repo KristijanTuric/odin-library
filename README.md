@@ -1,5 +1,9 @@
 # Odin Project - Library
 
+Demo: [Odin Library](https://kristijanturic.github.io/odin-library/)
+
+Progress Tracker:
+
 - [X] New Book Dialog
 - [X] Return the dialog form values and save them in the array
 - [X] Notifiy the user if he doesn't enter a value (red outline if empty, lime green outline if entered book)
@@ -19,4 +23,4 @@
       - [X] Give the user feedback when pressing the button
     - [X] Able to remove the book from local storage
   - [X] Read from the locally saved data upon website opening
-  - [ ] Alter UI Design Colors
+  - [ ] UI Rework
